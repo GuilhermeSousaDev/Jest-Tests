@@ -40,13 +40,13 @@ class User {
 
     create ({ name, email, password }) {
         this.#users.push({
-            id: this.users[this.users.length - 1].id + 1,
+            id: this.#users[this.#users.length - 1].id + 1,
             name,
             email,
             password,
         });
 
-        return this.#users;
+        return this.#users[this.#users.length - 1];
     }
 }
 
