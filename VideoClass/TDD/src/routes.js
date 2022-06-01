@@ -1,15 +1,9 @@
-const User = require('./users/implementations');
+const route = require('express').Router();
 
-const routes = require('express').Router();
+route.post('/sessions', (req, res) => {
+    const { email, password } = req.body;
 
-const user = new User();
-
-const newUser = user.create({ 
-    name: 'Thiago',
-    email: 'Thiago@gmail.com',
-    password: '12345',
+    res.status(200);
 });
 
-console.log(newUser);
-
-module.exports = routes;
+module.exports = route;
