@@ -11,13 +11,16 @@ describe('Authentication', () => {
             password: '12345',
         });
 
-        const response = request(app)
+        request(app)
             .post('/sessions')
             .send({
                 email: user.email,
                 password: '12345'
+            })
+            .end((err, res) => {
+                expect(res.status).toBe(200);
             });
+
         
-        expect(response.status).toBe(200)
     });
 });

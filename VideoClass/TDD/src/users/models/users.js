@@ -19,4 +19,4 @@ let users = [
     }
 ];
 
-export { users };
+module.exports = { users };
