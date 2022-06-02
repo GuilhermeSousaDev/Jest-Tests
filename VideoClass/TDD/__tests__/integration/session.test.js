@@ -20,7 +20,23 @@ describe('Authentication', () => {
             .end((err, res) => {
                 expect(res.status).toBe(200);
             });
+    });
 
-        
+    test('should not authenticate with invalid credentials', async () => {
+        const user = await new User().create({
+            name: 'Yugo',
+            email: 'Yugo@gmail.com',
+            password: '12345',
+        });
+
+        request(app)
+            .post('/sessions')
+            .send({
+                email: user.email,
+                password: '123'
+            })
+            .end((err, res) => {
+                expect(res.status).toBe(401);
+            });
     });
 });

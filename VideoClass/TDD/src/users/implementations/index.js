@@ -1,3 +1,4 @@
+const { hash, compare } = require("bcryptjs");
 const { users } = require("../models/users");
 
 class User {
@@ -13,12 +14,18 @@ class User {
         return user.join('');
     }
 
-    create ({ name, email, password }) {
+    findByEmail(email) {
+        const user = this.#users.filter(user => user.email === email);
+
+        return user.join('');
+    }
+
+    async create ({ name, email, password }) {
         this.#users.push({
             id: this.#users[this.#users.length - 1].id + 1,
             name,
             email,
-            password,
+            password: await hash(password, 8),
         });
 
         return this.#users[this.#users.length - 1];
@@ -28,6 +35,14 @@ class User {
         this.#users = this.#users.filter(user => {
             user.id !== id;
         });
+    }
+
+    async checkPassword (password, id) {
+        const user = this.findById(id);
+
+        const compareHash = await compare(password, user.password);
+
+        return compareHash;
     }
 }
 
