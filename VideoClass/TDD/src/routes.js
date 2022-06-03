@@ -1,7 +1,10 @@
+const { compare } = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const route = require('express').Router();
 const User = require('./users/implementations/index');
 
-route.post('/sessions', (req, res) => {
+route.post('/sessions', async (req, res) => {
     const { email, password } = req.body;
 
     const user = new User().findByEmail(email);
@@ -14,7 +17,14 @@ route.post('/sessions', (req, res) => {
         return res.status(401).json({ message: 'Incorrect Password' })
     }   
 
-    res.status(200).send({});
+    const token = jwt.sign(
+        { id: user.id }, 'djskjdiojijdjao'
+    );
+
+    res.status(200).json({
+        user,
+        token,
+    });
 });
 
 module.exports = route;
