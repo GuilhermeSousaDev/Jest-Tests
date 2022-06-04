@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 const route = require('express').Router();
 const User = require('./users/implementations/index');
 
+route.get('/dashboard', (req, res) => {
+    return res.status(200).send({});
+});
+
 route.post('/sessions', async (req, res) => {
     const { email, password } = req.body;
 
@@ -17,9 +21,7 @@ route.post('/sessions', async (req, res) => {
         return res.status(401).json({ message: 'Incorrect Password' })
     }   
 
-    const token = jwt.sign(
-        { id: user.id }, 'djskjdiojijdjao'
-    );
+    const token = new User().generateToken({ id: user.id });
 
     res.status(200).json({
         user,

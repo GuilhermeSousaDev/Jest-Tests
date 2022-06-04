@@ -1,4 +1,5 @@
 const { hash, compare } = require("bcryptjs");
+const { sign } = require("jsonwebtoken");
 const { users } = require("../models/users");
 
 class User {
@@ -43,6 +44,10 @@ class User {
         const compareHash = await compare(password, user.password);
 
         return compareHash;
+    }
+
+    generateToken (data) {
+        return sign(data, 'odklskjdoajreasd', { expiresIn: '1d' });
     }
 }
 
