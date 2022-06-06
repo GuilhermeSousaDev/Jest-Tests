@@ -1,12 +1,9 @@
 const { compare } = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const isAuthenticated = require('./middleware/isAuthenticated');
 
 const route = require('express').Router();
 const User = require('./users/implementations/index');
-
-route.get('/dashboard', (req, res) => {
-    return res.status(200).send({});
-});
 
 route.post('/sessions', async (req, res) => {
     const { email, password } = req.body;
@@ -27,6 +24,12 @@ route.post('/sessions', async (req, res) => {
         user,
         token,
     });
+});
+
+route.use(isAuthenticated);
+
+route.get('/dashboard', (req, res) => {
+    return res.status(200).send({});
 });
 
 module.exports = route;
