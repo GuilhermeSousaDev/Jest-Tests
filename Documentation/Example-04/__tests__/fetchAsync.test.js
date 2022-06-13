@@ -12,4 +12,12 @@ describe('Async Request Tests', () => {
 
         data.map(vl => expect(vl).toHaveProperty('url'))
     });
+
+    test('error with async/await', async () => {
+        try {
+            await EndPoint.getPhotos()
+        } catch (error) {
+            expect(error).toHaveProperty('message')
+        }
+    });
 });
