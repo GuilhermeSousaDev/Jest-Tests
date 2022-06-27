@@ -1,7 +1,9 @@
 {
   "devDependencies": {
+    "@shelf/jest-mongodb": "^3.0.1",
     "jest": "^28.1.1",
-    "jest-puppeteer": "^6.1.0"
+    "jest-puppeteer": "^6.1.0",
+    "mongodb": "^4.7.0"
   },
   "scripts": {
     "test": "jest"
